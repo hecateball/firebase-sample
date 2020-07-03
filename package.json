@@ -1,0 +1,21 @@
+{
+  "name": "sample",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint --fix \"src/**/*.{ts,vue}\""
+  },
+  "dependencies": {
+    "vue": "^3.0.0-beta.18"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.0.0-beta.18",
+    "eslint": "^7.3.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-vue": "^7.0.0-alpha.8",
+    "prettier": "^2.0.5",
+    "vite": "^1.0.0-beta.10"
+  }
+}
