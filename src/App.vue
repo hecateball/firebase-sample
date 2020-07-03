@@ -1,15 +1,13 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3.0 + Vite" />
+  <header>
+    <h1>Header</h1>
+    <nav>
+      <RouterLink :to="{ name: 'index' }">Index</RouterLink> /
+      <RouterLink :to="{ name: 'sign-up' }">会員登録</RouterLink> /
+      <RouterLink :to="{ name: 'sign-in' }">ログイン</RouterLink>
+    </nav>
+  </header>
+  <main>
+    <RouterView />
+  </main>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
-
-export default defineComponent({
-  components: {
-    HelloWorld,
-  },
-})
-</script>

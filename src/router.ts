@@ -1,0 +1,38 @@
+import { createRouter, createWebHistory, NavigationGuard } from 'vue-router'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+const Index = () => import('/@/pages/Index.vue')
+const SignUp = () => import('/@/pages/sign-up/Index.vue')
+const SignIn = () => import('/@/pages/sign-in/Index.vue')
+const Members = () => import('/@/pages/members/Index.vue')
+
+const authenticationRequired: NavigationGuard = (to, from, next) => {
+  new Promise<firebase.User | null>((resolve) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      unsubscribe()
+      resolve(user)
+    })
+  }).then((user) => {
+    if (user === null) {
+      next({ name: 'sign-in' })
+      return
+    }
+    next()
+  })
+}
+
+export const router = createRouter({
+  history: createWebHistory(),
+  //scrollBehavior: () => ({ x: 0, y: 0 }),
+  routes: [
+    { path: '/', name: 'index', component: Index },
+    { path: '/sign-up', name: 'sign-up', component: SignUp },
+    { path: '/sign-in', name: 'sign-in', component: SignIn },
+    {
+      path: '/members',
+      name: 'members',
+      component: Members,
+      beforeEnter: authenticationRequired,
+    },
+  ],
+})
