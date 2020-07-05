@@ -1,6 +1,8 @@
-import { ref } from 'vue'
+// import { ref } from 'vue'
+export { useCurrentUser } from '/@/plugins/firebase'
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import 'firebase/firestore'
 
 export type SignUpInput = {
   displayName: string
@@ -13,20 +15,8 @@ export type SignInInput = {
   password: string
 }
 
-export const useCurrentUser = async () => {
-  const currentUser = ref<firebase.User | null>(null)
-  await new Promise<void>((resolve) => {
-    firebase.auth().onAuthStateChanged((user) => {
-      currentUser.value = user
-      resolve()
-    })
-  })
-  return {
-    currentUser,
-  }
-}
-
 export const signUp = async (input: SignUpInput) => {
+  // Firebase Authへの書き込み
   try {
     await firebase
       .auth()
@@ -36,6 +26,21 @@ export const signUp = async (input: SignUpInput) => {
     })
   } catch (error) {
     console.error(error)
+  }
+  // Firestoreへの書き込み
+  try {
+    await firebase.auth().currentUser.getIdTokenResult(true)
+    await firebase
+      .firestore()
+      .collection('users')
+      .doc(firebase.auth().currentUser.uid)
+      .set({
+        displayName: input.displayName,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+  } catch (error) {
+    console.error(error)
+    await firebase.auth().currentUser.delete()
   }
 }
 

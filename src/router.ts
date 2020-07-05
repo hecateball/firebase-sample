@@ -5,6 +5,7 @@ const Index = () => import('/@/pages/Index.vue')
 const SignUp = () => import('/@/pages/sign-up/Index.vue')
 const SignIn = () => import('/@/pages/sign-in/Index.vue')
 const Members = () => import('/@/pages/members/Index.vue')
+const Create = () => import('/@/pages/members/create/Index.vue')
 
 const authenticationRequired: NavigationGuard = (to, from, next) => {
   new Promise<firebase.User | null>((resolve) => {
@@ -23,7 +24,7 @@ const authenticationRequired: NavigationGuard = (to, from, next) => {
 
 export const router = createRouter({
   history: createWebHistory(),
-  //scrollBehavior: () => ({ x: 0, y: 0 }),
+  scrollBehavior: () => ({ left: 0, top: 0 }),
   routes: [
     { path: '/', name: 'index', component: Index },
     { path: '/sign-up', name: 'sign-up', component: SignUp },
@@ -32,6 +33,12 @@ export const router = createRouter({
       path: '/members',
       name: 'members',
       component: Members,
+      beforeEnter: authenticationRequired,
+    },
+    {
+      path: '/members/create',
+      name: 'members-create',
+      component: Create,
       beforeEnter: authenticationRequired,
     },
   ],
