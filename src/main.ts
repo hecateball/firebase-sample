@@ -6,14 +6,14 @@ import '/@/assets/new.css'
 
 createApp(App)
   .use(firebaseInit, {
-    apiKey: 'AIzaSyD83KgMCnT1GNumpojKybJlV2WnDRlFtEM',
-    authDomain: 'shiodaifuku-io.firebaseapp.com',
-    databaseURL: 'https://shiodaifuku-io.firebaseio.com',
-    projectId: 'shiodaifuku-io',
-    storageBucket: 'shiodaifuku-io.appspot.com',
-    messagingSenderId: '875470404419',
-    appId: '1:875470404419:web:aee8c38e72511426',
-    measurementId: 'G-C66P2JVWL1',
+    apiKey: 'AIzaSyDOYeAuekhLYfPvQyHS7eaNQ4J2G-HWEt8',
+    authDomain: 'hoshimachi-studio.firebaseapp.com',
+    databaseURL: 'https://hoshimachi-studio.firebaseio.com',
+    projectId: 'hoshimachi-studio',
+    storageBucket: 'hoshimachi-studio.appspot.com',
+    messagingSenderId: '96795732381',
+    appId: '1:96795732381:web:e492432a2ccd3c0f89a774',
+    measurementId: 'G-0CGK3N66KS',
   })
   .use(router)
   .mount('#app')
