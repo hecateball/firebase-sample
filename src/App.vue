@@ -13,7 +13,7 @@
   </main>
 </template>
 
-<script lnag="ts">
+<script lang="ts">
 import { defineComponent } from 'vue'
 import { provideCurrentUser } from '/@/plugins/firebase'
 
