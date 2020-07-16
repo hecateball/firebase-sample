@@ -22,14 +22,18 @@ service cloud.firestore {
       allow write: if request.auth != null
         && request.auth.uid == uid
         && exists(/databases/$(database)/documents/users/$(uid))
-        && request.resource.data.keys().toSet().hasOnly(["name", "description", "price", "createdAt"])
+        && request.resource.data.keys().toSet().hasOnly(["name", "description", "price", "image", "createdAt"])
         && request.resource.data.name is string
         && request.resource.data.description is string
         && request.resource.data.price is int
+        && request.resource.data.image is map
+        && request.resource.data.image.keys().toSet().hasOnly(["url"])
+        && request.resource.data.image.url is string
         && request.resource.data.createdAt is timestamp
         && request.resource.data.name.size() > 0
         && request.resource.data.description.size() > 0
         && request.resource.data.price > 0
+        && request.resource.data.image.url.size() > 0
         && request.resource.data.createdAt == request.time;
     }
   }
