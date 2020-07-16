@@ -1,10 +1,10 @@
 <template>
-  <img alt="Vue logo" src="/@/assets/logo.png" />
   <section>
     <table>
       <thead>
         <tr>
           <th>ID</th>
+          <th>画像</th>
           <th>商品名</th>
           <th>商品説明</th>
           <th>価格</th>
@@ -14,6 +14,7 @@
       <tbody>
         <tr v-for="item in items" :key="item.id">
           <td>{{ item.id }}</td>
+          <td><img :src="item.image.url" /></td>
           <td>{{ item.name }}</td>
           <td>{{ item.description }}</td>
           <td>{{ item.price }}</td>
