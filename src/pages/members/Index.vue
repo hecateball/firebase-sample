@@ -44,7 +44,7 @@ import { useItems } from '/@/compositions/items'
 
 export default defineComponent({
   setup() {
-    const currentUser = useCurrentUser()
+    const { currentUser } = useCurrentUser()
     const items = useItems(currentUser.value.uid)
     const router = useRouter()
     const submit = async () => {

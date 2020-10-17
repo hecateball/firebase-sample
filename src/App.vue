@@ -15,11 +15,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { provideCurrentUser } from '/@/plugins/firebase'
 
 export default defineComponent({
-  setup() {
-    provideCurrentUser()
-  },
+  setup() {},
 })
 </script>
