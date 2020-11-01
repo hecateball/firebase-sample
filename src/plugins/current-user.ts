@@ -1,5 +1,5 @@
 import { App, Plugin, ref, readonly } from 'vue'
-import { CurrentUser } from '/@/compositions/users'
+import { CurrentUser } from '/@/composables/users'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 

@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useItems } from '/@/compositions/items'
+import { useItems } from '/@/composables/items'
 
 export default defineComponent({
   setup() {

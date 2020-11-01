@@ -39,7 +39,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
-import { signUp, SignUpInput } from '/@/compositions/auth'
+import { signUp, SignUpInput } from '/@/composables/auth'
 
 export default defineComponent({
   setup() {

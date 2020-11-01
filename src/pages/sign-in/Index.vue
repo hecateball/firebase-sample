@@ -23,7 +23,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
-import { signIn, SignInInput } from '/@/compositions/auth'
+import { signIn, SignInInput } from '/@/composables/auth'
 
 export default defineComponent({
   setup() {

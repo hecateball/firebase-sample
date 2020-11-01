@@ -27,7 +27,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
-import { ItemInput, createItem } from '/@/compositions/items'
+import { ItemInput, createItem } from '/@/composables/items'
 
 export default defineComponent({
   setup() {
