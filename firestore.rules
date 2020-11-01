@@ -10,7 +10,7 @@ service cloud.firestore {
       allow read;
       allow write: if request.auth != null
         && request.auth.uid == uid
-        && request.resource.data.keys().toSet().hasOnly(["displayName", "createdAt"])
+        && request.resource.data.keys().toSet() == ['displayName', 'createdAt'].toSet()
         && request.resource.data.displayName is string
         && request.resource.data.createdAt is timestamp
         && request.resource.data.displayName == request.auth.token.name
@@ -22,18 +22,36 @@ service cloud.firestore {
       allow write: if request.auth != null
         && request.auth.uid == uid
         && exists(/databases/$(database)/documents/users/$(uid))
-        && request.resource.data.keys().toSet().hasOnly(["name", "description", "price", "image", "createdAt"])
+        && request.resource.data.keys().toSet() == ['name', 'description', 'price', 'image', 'createdAt'].toSet()
         && request.resource.data.name is string
         && request.resource.data.description is string
         && request.resource.data.price is int
         && request.resource.data.image is map
-        && request.resource.data.image.keys().toSet().hasOnly(["url"])
+        && request.resource.data.image.keys().toSet() == ['url'].toSet()
         && request.resource.data.image.url is string
         && request.resource.data.createdAt is timestamp
         && request.resource.data.name.size() > 0
         && request.resource.data.description.size() > 0
         && request.resource.data.price > 0
         && request.resource.data.image.url.size() > 0
+        && request.resource.data.createdAt == request.time;
+    }
+
+    match /contacts/{uid} {
+      allow read: if request.auth != null
+        && request.auth.uid == uid;
+      allow write: if request.auth != null
+        && request.auth.uid == uid
+        && request.resource.data.keys().toSet() == ['name', 'zipCode', 'address', 'phoneNumber', 'createdAt'].toSet()
+        && request.resource.data.name is string
+        && request.resource.data.zipCode is string
+        && request.resource.data.address is string
+        && request.resource.data.phoneNumber is string
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.name.size() > 0
+        && request.resource.data.zipCode.matches('^[0-9]{3}-[0-9]{4}$')
+        && request.resource.data.address.size() > 0
+        && request.resource.data.phoneNumber.matches('^[0-9]+$')
         && request.resource.data.createdAt == request.time;
     }
   }

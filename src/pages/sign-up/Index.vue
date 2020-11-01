@@ -7,7 +7,7 @@
     </div>
     <div>
       <label for="email">メールアドレス</label><br />
-      <input id="email" v-model="email" type="text" />
+      <input id="email" v-model="email" type="text" autocomplete="username" />
     </div>
     <div>
       <label for="password">パスワード</label><br />
@@ -19,19 +19,23 @@
       />
     </div>
     <div>
-      <label for="password">氏名</label><br />
-      <input id="name" type="text" />
+      <label for="name">氏名</label><br />
+      <input id="name" v-model="name" type="text" />
     </div>
     <div>
-      <label for="password">住所</label><br />
-      <input id="address" type="text" />
+      <label for="zipCode">郵便番号</label><br />
+      <input id="zipCode" v-model="zipCode" type="text" />
+    </div>
+    <div>
+      <label for="address">住所</label><br />
+      <input id="address" v-model="address" type="text" />
     </div>
     <div>
       <label for="phoneNumber">電話番号</label><br />
-      <input id="phoneNumber" type="text" />
+      <input id="phoneNumber" v-model="phoneNumber" type="text" />
     </div>
     <div>
-      <button type="submit">ログイン</button>
+      <button type="submit">会員登録してログイン</button>
     </div>
   </form>
 </template>
@@ -47,11 +51,19 @@ export default defineComponent({
       displayName: '',
       email: '',
       password: '',
+      name: '',
+      zipCode: '',
+      address: '',
+      phoneNumber: '',
     })
     const router = useRouter()
     const submit = async () => {
-      await signUp(input)
-      await router.push({ name: 'members' })
+      try {
+        await signUp(input)
+        await router.push({ name: 'members' })
+      } catch (error) {
+        console.log('error at sign in', error)
+      }
     }
     return {
       ...toRefs(input),

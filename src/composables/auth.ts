@@ -29,20 +29,40 @@ export const signUp = async (input: SignUpInput) => {
     await firebase.auth().currentUser.getIdToken(true)
   } catch (error) {
     console.error(error)
+    throw error
   }
   // Firestoreへの書き込み
   try {
-    await firebase
-      .firestore()
-      .collection('users')
-      .doc(firebase.auth().currentUser.uid)
-      .set({
+    console.log(input, firebase.auth().currentUser)
+    const batch = firebase.firestore().batch()
+    batch.set(
+      firebase
+        .firestore()
+        .collection('users')
+        .doc(firebase.auth().currentUser.uid),
+      {
         displayName: input.displayName,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      })
+      }
+    )
+    batch.set(
+      firebase
+        .firestore()
+        .collection('contacts')
+        .doc(firebase.auth().currentUser.uid),
+      {
+        name: input.name,
+        zipCode: input.zipCode,
+        address: input.address,
+        phoneNumber: input.phoneNumber,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      }
+    )
+    await batch.commit()
   } catch (error) {
     console.error(error)
     await firebase.auth().currentUser.delete()
+    throw error
   }
 }
 
