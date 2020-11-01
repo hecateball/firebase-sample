@@ -7,19 +7,18 @@ const SignIn = () => import('/@/pages/sign-in/Index.vue')
 const Members = () => import('/@/pages/members/Index.vue')
 const Create = () => import('/@/pages/members/create/Index.vue')
 
-const authenticationRequired: NavigationGuard = (to, from, next) => {
-  new Promise<firebase.User | null>((resolve) => {
+const authenticationRequired: NavigationGuard = async (to, from, next) => {
+  const currentUser = await new Promise<firebase.User | null>((resolve) => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       unsubscribe()
       resolve(user)
     })
-  }).then((user) => {
-    if (user === null) {
-      next({ name: 'sign-in' })
-      return
-    }
-    next()
   })
+  if (currentUser === null) {
+    next({ name: 'sign-in' })
+    return
+  }
+  next()
 }
 
 export const router = createRouter({

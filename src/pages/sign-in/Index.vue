@@ -3,11 +3,16 @@
   <form @submit.prevent="submit">
     <div>
       <label for="email">Email</label><br />
-      <input id="email" v-model="email" type="text" />
+      <input id="email" v-model="email" type="text" autocomplete="username" />
     </div>
     <div>
       <label for="password">Password</label><br />
-      <input id="password" v-model="password" type="password" />
+      <input
+        id="password"
+        v-model="password"
+        type="password"
+        autocomplete="current-password"
+      />
     </div>
     <div>
       <button type="submit">ログイン</button>
@@ -18,7 +23,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
-import { signIn, SignInInput } from '/@/compositions/users'
+import { signIn, SignInInput } from '/@/compositions/auth'
 
 export default defineComponent({
   setup() {

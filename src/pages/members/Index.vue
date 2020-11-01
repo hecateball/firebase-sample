@@ -39,7 +39,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
-import { signOut, useCurrentUser } from '/@/compositions/users'
+import { signOut } from '/@/compositions/auth'
+import { useCurrentUser } from '/@/compositions/users'
 import { useItems } from '/@/compositions/items'
 
 export default defineComponent({

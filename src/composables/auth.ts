@@ -1,29 +1,20 @@
-import { inject, InjectionKey, Ref } from 'vue'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-
-export const CurrentUser: InjectionKey<{
-  currentUser: Ref<firebase.User | null>
-}> = Symbol()
 
 export type SignUpInput = {
   displayName: string
   email: string
   password: string
+  name: string
+  zipCode: string
+  address: string
+  phoneNumber: string
 }
 
 export type SignInInput = {
   email: string
   password: string
-}
-
-export const useCurrentUser = () => {
-  const currentUser = inject(CurrentUser)
-  if (currentUser === undefined) {
-    throw new Error('currentUser is not provided')
-  }
-  return { ...currentUser }
 }
 
 export const signUp = async (input: SignUpInput) => {
@@ -35,12 +26,12 @@ export const signUp = async (input: SignUpInput) => {
     await firebase.auth().currentUser.updateProfile({
       displayName: input.displayName,
     })
+    await firebase.auth().currentUser.getIdToken(true)
   } catch (error) {
     console.error(error)
   }
   // Firestoreへの書き込み
   try {
-    await firebase.auth().currentUser.getIdTokenResult(true)
     await firebase
       .firestore()
       .collection('users')

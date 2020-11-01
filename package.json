@@ -7,17 +7,17 @@
     "lint": "eslint --fix \"src/**/*.{ts,vue}\""
   },
   "dependencies": {
-    "firebase": "^7.23.0",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0-beta.13"
+    "firebase": "^7.24.0",
+    "vue": "^3.0.2",
+    "vue-router": "^4.0.0-rc.1"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.0.0",
-    "eslint": "^7.7.0",
-    "eslint-config-prettier": "^6.12.0",
+    "@vue/compiler-sfc": "^3.0.2",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-vue": "^7.0.1",
+    "eslint-plugin-vue": "^7.1.0",
     "prettier": "^2.1.2",
-    "vite": "^1.0.0-rc.4"
+    "vite": "^1.0.0-rc.8"
   }
 }

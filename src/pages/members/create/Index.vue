@@ -29,10 +29,6 @@ import { defineComponent, reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { ItemInput, createItem } from '/@/compositions/items'
 
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/storage'
-
 export default defineComponent({
   setup() {
     const input = reactive<ItemInput>({
