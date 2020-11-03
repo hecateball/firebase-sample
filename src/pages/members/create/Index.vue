@@ -47,10 +47,30 @@ export default defineComponent({
       const file = event.target.files[0]
       const reader = new FileReader()
       reader.onload = (progressEvent) => {
-        const index = file.name.lastIndexOf('.')
-        input.image.extension = index < 1 ? '' : file.name.slice(index + 1)
-        input.image.dataURL = progressEvent.target.result as string
-        console.log(input.image)
+        const image = new Image()
+        image.onload = () => {
+          const width = 500
+          const height = (image.height / image.width) * 500
+          const canvas = document.createElement('canvas')
+          canvas.setAttribute('width', String(width))
+          canvas.setAttribute('height', String(height))
+          const context = canvas.getContext('2d')
+          context.drawImage(
+            image,
+            0,
+            0,
+            image.width,
+            image.height,
+            0,
+            0,
+            width,
+            height
+          )
+          const index = file.name.lastIndexOf('.')
+          input.image.extension = index < 1 ? '' : file.name.slice(index + 1)
+          input.image.dataURL = canvas.toDataURL(file.type)
+        }
+        image.src = progressEvent.target.result as string
       }
       reader.readAsDataURL(event.target.files[0])
     }
