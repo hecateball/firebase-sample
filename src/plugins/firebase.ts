@@ -9,8 +9,7 @@ export const firebaseInit: Plugin = {
       return
     }
     firebase.initializeApp(options[0])
-    console.log(process.env.NODE_ENV)
-    if (process.env.NODE_ENV !== 'production') {
+    if (import.meta.env.VITE_USE_EMULATORS !== 'production') {
       firebase.auth().useEmulator('http://localhost:9099/')
       firebase.firestore().settings({
         host: 'localhost:8080',

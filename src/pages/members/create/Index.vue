@@ -50,6 +50,7 @@ export default defineComponent({
         const index = file.name.lastIndexOf('.')
         input.image.extension = index < 1 ? '' : file.name.slice(index + 1)
         input.image.dataURL = progressEvent.target.result as string
+        console.log(input.image)
       }
       reader.readAsDataURL(event.target.files[0])
     }
