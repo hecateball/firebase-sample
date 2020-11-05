@@ -5,7 +5,7 @@ import 'firebase/firestore'
 import 'firebase/storage'
 
 export type Item = {
-  id?: string
+  id: string
   name: string
   description: string
   price: number
@@ -38,7 +38,9 @@ type ImageType =
   | 'image/webp'
 
 const converter: firebase.firestore.FirestoreDataConverter<Item> = {
-  toFirestore: (item: Item): firebase.firestore.DocumentData => ({
+  toFirestore: (
+    item: Omit<Item, 'id' | 'createdAt'>
+  ): firebase.firestore.DocumentData => ({
     name: item.name,
     description: item.description,
     price: item.price,
@@ -97,7 +99,7 @@ export const createItem = async (item: ItemInput, image: ImageInput) => {
       .doc(firebase.auth().currentUser.uid)
       .collection('items')
       .withConverter(converter)
-      .doc()
+      .doc('hzUuN3o00oDqAC3Kn7Io')
     //画像のアップロード
     const uploadingImage = firebase
       .storage()
@@ -106,11 +108,13 @@ export const createItem = async (item: ItemInput, image: ImageInput) => {
     const url = await uploadingImage
       .putString(image.dataURL, 'data_url')
       .then(async (): Promise<string> => await uploadingImage.getDownloadURL())
-    await reference.set({
-      ...item,
-      image: { url },
-      createdAt: new Date(),
-    })
+    await reference.set(
+      {
+        ...item,
+        image: { url },
+      },
+      { merge: false }
+    )
   } catch (error) {
     console.error(error)
   }
